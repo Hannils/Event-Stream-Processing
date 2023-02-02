@@ -2,6 +2,7 @@
 
 <details>
   <summary>Log</summary>
+  
   ### Day 0
   Setup: Getting to know the office, installing visual studio. Getting familiar with environment
   Getting to know c#
