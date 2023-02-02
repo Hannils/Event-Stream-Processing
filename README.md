@@ -12,6 +12,6 @@
   ### Day 1
   
   Had a quick meeting with external supervisor talking about the next step. Our plan is to create a Miro board so that everyone involved will have the same expectations of what the result will look like.
-  Created a Miro board with a simple representation of what the ESP will consist of. [Miro Board](./documenting-resources/ESP-Unit1.png)
+  Created a Miro board with a simple representation of what the ESP will consist of. ![Miro Board](./documenting-resources/ESP-Unit1.png?raw=true "=)")
   
 </details>
