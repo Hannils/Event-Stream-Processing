@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESPV1", "ESPV1\ESPV1.csproj", "{8E3DFD39-4C2C-4B27-BEA3-6430FBA1DFE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESPV1Console", "ESPV1Console\ESPV1Console.csproj", "{CC4C72A0-C996-42D6-84D1-62D26B46B13D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E3DFD39-4C2C-4B27-BEA3-6430FBA1DFE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E3DFD39-4C2C-4B27-BEA3-6430FBA1DFE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E3DFD39-4C2C-4B27-BEA3-6430FBA1DFE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E3DFD39-4C2C-4B27-BEA3-6430FBA1DFE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC4C72A0-C996-42D6-84D1-62D26B46B13D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC4C72A0-C996-42D6-84D1-62D26B46B13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC4C72A0-C996-42D6-84D1-62D26B46B13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC4C72A0-C996-42D6-84D1-62D26B46B13D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E534E3C-1290-4261-B10F-9A513FF1458E}
+	EndGlobalSection
+EndGlobal
