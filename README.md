@@ -16,5 +16,10 @@
   Created a Miro board with a simple representation of what the ESP will consist of. ![Miro Board](./documenting-resources/ESP-Unit1.png?raw=true "=)")
 
   Spend most of the day researching event streams and processing. Wrote about 1/3 of the individual plan.
+
+
+  ### Day 2
+
+  Mostly spent out time working on our individual report. Eventually we started writing the start of the ESP. By the end of friday, we had a parser that could handle both JSON and HTTP requests and in turn transform them into a special type.
   
 </details>
