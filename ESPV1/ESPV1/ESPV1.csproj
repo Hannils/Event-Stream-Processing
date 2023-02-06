@@ -9,9 +9,13 @@
   <ItemGroup>
     <None Remove="Parser\" />
     <None Remove="Microsoft.AspNetCore.Http" />
+    <None Remove="Filter\" />
+    <None Remove="Classifier\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Parser\" />
+    <Folder Include="Filter\" />
+    <Folder Include="Classifier\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />

@@ -6,12 +6,14 @@ namespace ESPV1.Types
     public class Event
     {
         string type { get; set; }
+        public string identifier { get; }
         Dictionary<string, object> attributes { get; }
 
 
-        public Event(string type, Dictionary<string, object> attributes)
+        public Event(string type, string identifier, Dictionary<string, object> attributes)
         {
             this.type = type;
+            this.identifier = identifier;
 
             this.attributes = attributes;
 
