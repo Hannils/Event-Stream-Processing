@@ -21,5 +21,10 @@
   ### Day 2
 
   Mostly spent out time working on our individual report. Eventually we started writing the start of the ESP. By the end of friday, we had a parser that could handle both JSON and HTTP requests and in turn transform them into a special type.
+
+
+  ### Day 3
+
+  Finished our individual plan and sent it our supervisor for a quick review. Looked into a lot of sources and references for our pre-study. Development wise, we started to implement our classifiers along with the filters. We also visualized how the relation between classifiers and filters will be done. For the next time, we will start implementing testing for our parsers to make sure that they will be able to handle eventual complications (Error handling). We will also start working on our memory store and the actual functionality of our classifiers. 
   
 </details>
