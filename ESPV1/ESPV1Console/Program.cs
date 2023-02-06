@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 namespace ESPV1Console;
 public class Class1 {
     static public void Main(String[] args) {
-        var eventFilter = new EventFilter(new EventClassifier[] { new TrendingClassifier(), new AnomalyClassifier() });
+        /* var eventFilter = new EventFilter(new EventClassifier[] { new TrendingClassifier(), new AnomalyClassifier() });
         var parser = new HTTPParser();
         var context = new DefaultHttpContext();
         context.Request.Path = "/load";
@@ -17,6 +17,14 @@ public class Class1 {
         var classifiers = eventFilter.filter(evt);
         foreach (var classifier in classifiers) {
             Console.WriteLine(classifier);
+        }
+        */
+        var parser = new JSONEventParser();
+        using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/ESPV1/ESPV1Console/Example.json")) {
+            string json = r.ReadToEnd();
+            var evt = parser.parse(json);
+            Console.WriteLine(evt);
+
         }
     }
 }
