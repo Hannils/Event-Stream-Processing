@@ -5,9 +5,10 @@ namespace ESPV1.Filter {
     public class EventFilter {
         private Dictionary<String, List<EventClassifier>> x;
         public EventFilter(EventClassifier[] classifiers) {
+            x = new Dictionary<string, List<EventClassifier>>();
             foreach (var classifier in classifiers) {
                 foreach (var subscription in classifier.Subscriptions) {
-                    if (x[subscription] == null) x.Add(subscription, new List<EventClassifier>());
+                    if (!x.ContainsKey(subscription)) x.Add(subscription, new List<EventClassifier>());
                     x[subscription].Add(classifier);
                 }
             }
