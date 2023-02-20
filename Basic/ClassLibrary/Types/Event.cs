@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-
-namespace ESPV1.Types
+namespace ClassLibrary.Types
 {
     public class Event
     {
@@ -29,6 +27,15 @@ namespace ESPV1.Types
         {
             return this.attributes[key];
 
+        }
+
+        public string ToString()
+        {
+            var s = "";
+            foreach (var (key, value) in attributes) {
+                s += key + ": " + value  + "\n";
+            }
+            return "type: " + this.type + " \n{\n" + s + "}";
         }
     }
 }

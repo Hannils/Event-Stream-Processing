@@ -4,9 +4,7 @@
     "user": "custom",
     "misc": {
         "prototype": true,
-        "environment": {
-            "production": false,
-            "testbed":  true
-        }
+        "environment": "testbed"
     }
 }
+

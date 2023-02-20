@@ -8,12 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ESPV1\ESPV1.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Microsoft.AspNetCore.Http" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj" />
   </ItemGroup>
 </Project>

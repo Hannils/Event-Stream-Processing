@@ -1,7 +1,7 @@
 ﻿using System;
-using ESPV1.Types;
+using ClassLibrary.Types;
 using Microsoft.AspNetCore.Http;
-namespace ESPV1.Parser
+namespace ClassLibrary.Parser
 {
     public class HTTPParser : EventParser
     {
