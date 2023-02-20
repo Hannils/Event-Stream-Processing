@@ -26,5 +26,10 @@
   ### Day 3
 
   Finished our individual plan and sent it our supervisor for a quick review. Looked into a lot of sources and references for our pre-study. Development wise, we started to implement our classifiers along with the filters. We also visualized how the relation between classifiers and filters will be done. For the next time, we will start implementing testing for our parsers to make sure that they will be able to handle eventual complications (Error handling). We will also start working on our memory store and the actual functionality of our classifiers. 
+
+
+  ### Day 4
+
+  Wrote some tests and started working on some of the specifics of the parsers. We havent started working on our classifiers yet. The next step is to start working on the classifiers along with setting everything up with a kestal webserver in order to get more of a flow in order. We're gonna check out redis as well with faker.net in order to generate and persist some data in accordance with the classifiers.
   
 </details>
