@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary.Classifier;
 using ClassLibrary.Filter;
@@ -15,10 +16,12 @@ namespace WebServer.Middlewares;
 public class EventFilterMiddleware
 {
     private readonly RequestDelegate _next;
+    private EventFilter eventFilter;
 
     public EventFilterMiddleware(RequestDelegate next)
     {
         _next = next;
+        eventFilter = new EventFilter(new EventClassifier[] { new TrendingClassifier(), new AnomalyClassifier() });
     }
 
     public Task Invoke(HttpContext httpContext)
@@ -27,19 +30,20 @@ public class EventFilterMiddleware
         var httpParser = new HTTPParser();
 
         var httpEvt = httpParser.parse(httpContext.Request);
+        if (httpEvt == null)
+            return _next(httpContext);
         if (!filtering.Contains(httpEvt.getAttribute("path").ToString()))
             return _next(httpContext);
-        Console.WriteLine("This is body: " + httpEvt.getAttribute("body"));
-        //Console.WriteLine(body.ToString());
-        var eventFilter = new EventFilter(new EventClassifier[] { new TrendingClassifier(), new AnomalyClassifier() });
+
+
         var httpClassifiers = eventFilter.Filter(httpEvt);
         if (httpClassifiers != null)
         foreach (var classifier in httpClassifiers) {
-            Console.WriteLine(classifier);
-                classifier.Classify(httpEvt);
+            classifier.Classify(httpEvt);
         }
 
         return _next(httpContext);
+
     }
 }
 

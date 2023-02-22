@@ -1,11 +1,7 @@
-﻿using System;
-using ClassLibrary.Types;
+﻿using ClassLibrary.Types;
 
-namespace ClassLibrary.Parser
-{
-    public interface EventParser
-    {
-        public Event parse(object evt);
-    }
+namespace ClassLibrary.Parser; 
+
+public interface EventParser {
+    public Event parse(object evt);
 }
-

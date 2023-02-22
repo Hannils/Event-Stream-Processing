@@ -38,7 +38,7 @@ namespace TestSolution
         public void TestNoClassifier()
         {
             var context = new DefaultHttpContext();
-            context.Request.Path = "/user";
+            context.Request.Path = "/nothing";
             context.Request.Method = "GET";
             context.Request.Headers["date"] = DateTime.Now.ToString();
             var httpEvt = httpParser.parse(context.Request);

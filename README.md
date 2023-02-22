@@ -31,5 +31,10 @@
   ### Day 4
 
   Wrote some tests and started working on some of the specifics of the parsers. We havent started working on our classifiers yet. The next step is to start working on the classifiers along with setting everything up with a kestal webserver in order to get more of a flow in order. We're gonna check out redis as well with faker.net in order to generate and persist some data in accordance with the classifiers.
+
+
+  ### Day 5
+
+  Today we focused mostly on implementing the functionality of the Classify function of the AnomalyClassifier. We finally installed Rider which improved effieciency by infinite %. We built our in-memory store with autoclear functionality such as a rolling window, removing the oldest stored event and interval based clearing. We started cleaning up with some util functions, separating, and de-coupling them from other functions.
   
 </details>

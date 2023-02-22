@@ -3,7 +3,7 @@ using ClassLibrary.Parser;
 using ClassLibrary.Types;
 using FluentAssertions;
 
-public class UnitTest1
+public class JSONParserTest
 {
     [Fact]
     public void ReturnEventWithValidJSON()

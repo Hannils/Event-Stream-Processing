@@ -15,5 +15,11 @@ app.UseEventFilter();
 
 app.MapControllers();
 
+app.Use((context, next) =>
+{
+    context.Request.EnableBuffering();
+    return next();
+});
+
 app.Run();
 
