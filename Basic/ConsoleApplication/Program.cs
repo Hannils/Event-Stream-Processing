@@ -1,25 +1,25 @@
 ﻿using System;
 using ClassLibrary.Parser;
-using ClassLibrary.Filter;
 using ClassLibrary.Classifier;
+using ClassLibrary.Handler;
 using Microsoft.AspNetCore.Http;
 
 namespace ESPV1Console;
 public class Class1
 {
-    static public void Main(String[] args)
+    static public async Task Main(String[] args)
     {
         var httpParser = new HTTPParser();
-        var eventFilter = new EventFilter(new EventClassifier[] { new TrendingClassifier(), new AnomalyClassifier() });
+        var eventClassifier = new EventClassifier(new IEventHandler[] { new TrendingHandler(), new AnomalyHandler() });
         var context = new DefaultHttpContext();
             context.Request.Path = "/load";
             context.Request.Method = "POST";
             context.Request.Headers["date"] = DateTime.Now.ToString();
-            var httpEvt = httpParser.parse(context.Request);
-            var httpClassifiers = eventFilter.Filter(httpEvt);
+            var httpEvt = await httpParser.parse(context.Request);
+            var httpHandlers = eventClassifier.Classify(httpEvt);
             Console.WriteLine("HTTP: ");
-            foreach (var classifier in httpClassifiers) {
-                Console.WriteLine(classifier);
+            foreach (var handler in httpHandlers) {
+                Console.WriteLine(handler);
             }
 
 
@@ -27,21 +27,21 @@ public class Class1
         context.Request.Path = "/user";
             context.Request.Method = "GET";
             context.Request.Headers["date"] = DateTime.Now.ToString();
-            httpEvt = httpParser.parse(context.Request);
-            httpClassifiers = eventFilter.Filter(httpEvt);
+            httpEvt = await httpParser.parse(context.Request);
+            httpHandlers = eventClassifier.Classify(httpEvt);
             Console.WriteLine("HTTP: ");
-            foreach (var classifier in httpClassifiers) {
-                Console.WriteLine(classifier);
+            foreach (var handler in httpHandlers) {
+                Console.WriteLine(handler);
             }
 
             var jsonParser = new JSONEventParser();
             using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/FuntionalityTests/validJson.json")) {
                 string json = r.ReadToEnd();
-                var jsonEvt = jsonParser.parse(json);
-                var jsonClassifiers = eventFilter.Filter(jsonEvt);
+                var jsonEvt = await jsonParser.parse(json);
+                var jsonHandlers = eventClassifier.Classify(jsonEvt);
                 Console.WriteLine("JSON: ");
-                foreach (var classifier in jsonClassifiers) {
-                    Console.WriteLine(classifier);
+                foreach (var handler in jsonHandlers) {
+                    Console.WriteLine(handler);
                 }
             }
         

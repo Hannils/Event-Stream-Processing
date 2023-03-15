@@ -16,8 +16,8 @@
   <ItemGroup>
     <Folder Include="Types\" />
     <Folder Include="Parser\" />
-    <Folder Include="Filter\" />
     <Folder Include="Classifier\" />
+    <Folder Include="Handler\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Faker.Net" Version="2.0.154" />

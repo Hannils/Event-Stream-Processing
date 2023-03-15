@@ -5,24 +5,37 @@ using ClassLibrary.Types;
 namespace ClassLibrary.Utilities; 
 
 public class Util {
-    public static async Task<string> GetBody(Event evt) {
+    public static async Task<string> GetBody(Stream evt) {
         var bodyStr = "";
-        using (var reader = new StreamReader((Stream)evt.getAttribute("body"), Encoding.UTF8, true, 1024, true)) {
-            bodyStr = await reader.ReadToEndAsync();
+        try {
+            using (var reader = new StreamReader(evt, Encoding.UTF8, true, 1024, true)) {
+                bodyStr = await reader.ReadToEndAsync();
+            }
         }
+        catch (Exception e) {
+            Console.WriteLine("Exception caught: {0} ", e);
+            return null;
+        }
+
         return bodyStr;
     }
     
     public static Dictionary<string, object>? JSONParse(string text) {
-        var values = JsonSerializer.Deserialize<Dictionary<string, object>>(text);
-        if (values == null)
-            return null;
-        foreach (var (key, value) in values) {
-            var valueAsString = value.ToString();
-            if (valueAsString[0] == '{')
-                values[key] = JsonSerializer.Deserialize<Dictionary<string, object>>(value.ToString());
+        try {
+            var values = JsonSerializer.Deserialize<Dictionary<string, object>>(text);
+            if (values == null)
+                return null;
+            foreach (var (key, value) in values) {
+                var valueAsString = value.ToString();
+                if (valueAsString[0] == '{')
+                    values[key] = JsonSerializer.Deserialize<Dictionary<string, object>>(value.ToString());
+            }
+            return values;
         }
-
-        return values;
+        catch (JsonException e) {
+            Console.WriteLine("JsonException caught: {0} ", e);
+            return null;
+        }
+        
     }
 }

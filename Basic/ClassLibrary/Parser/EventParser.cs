@@ -3,5 +3,5 @@
 namespace ClassLibrary.Parser; 
 
 public interface EventParser {
-    public Event parse(object evt);
+    public Task<Event> parse(object evt);
 }

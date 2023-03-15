@@ -1,10 +1,11 @@
 ﻿using ClassLibrary.Types;
+using ClassLibrary.Utilities;
 using Microsoft.AspNetCore.Http;
 
 namespace ClassLibrary.Parser; 
 
 public class HTTPParser : EventParser {
-    public Event parse(object evt) {
+    public async Task<Event> parse(object evt) {
         var request = (HttpRequest)evt;
         var unixTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
         var HTTPEvent = new Dictionary<string, object> {
@@ -12,8 +13,8 @@ public class HTTPParser : EventParser {
             { "method", request.Method },
             { "date", unixTimestamp },
             { "query", request.Query },
-            { "body", request.Body }
+            { "body", await Util.GetBody(request.Body) }
         };
-        return new Event("HTTP", request.Method + "_" + request.Path, HTTPEvent);
+        return new Event("HTTP",  request.Path, HTTPEvent);
     }
 }

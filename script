@@ -1,0 +1,22 @@
+#!/bin/bash
+for i in {1..40}
+do
+    curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d '{"user": 123456, "timeStamp": 100, "ISBN": 4582979817354}'
+Sleep 1
+    curl -X GET http://localhost:5129/play -H "Content-Type: application/json"    
+Sleep 1
+    curl -X GET http://localhost:5129/bookmark -H "Content-Type: application/json" -d '{"user": "custom", "timeStamp": 1001}'
+Sleep 1
+    curl -X PUT http://localhost:5129/user -H "Content-Type: application/json" -d '{"user": "custom2", "timeStamp": 1002}'
+Sleep 1
+    curl -X DELETE http://localhost:5129/etc -H "Content-Type: application/json" -d '{"user": "custom3", "timeStamp": 1003}'
+Sleep 1
+    curl -X POST http://localhost:5129/user -H "Content-Type: application/json" -d '{"user": "custom4", "timeStamp": 1004}'
+Sleep 1
+    curl -X GET http://localhost:5129/user -H "Content-Type: application/json" -d '{"user": "custom5", "timeStamp": 1005}'
+Sleep 1
+    curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d '{"user": "custom6", "timeStamp": 1006, "ISBN": 4582979817356}'
+Sleep 1
+    curl -X POST http://localhost:5129/play -H "Content-Type: application/json" -d '{"user": "custom7", "timeStamp": 1007}'
+done
+

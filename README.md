@@ -37,4 +37,9 @@
 
   Today we focused mostly on implementing the functionality of the Classify function of the AnomalyClassifier. We finally installed Rider which improved effieciency by infinite %. We built our in-memory store with autoclear functionality such as a rolling window, removing the oldest stored event and interval based clearing. We started cleaning up with some util functions, separating, and de-coupling them from other functions.
   
+
+
+  ### Day 6 
+
+  Today we focused on getting our TestHost for the webserver up and running. Our intention was to test using generated data from Faker.Net Github Repo. When that was done we rewrote and restructured some of our functions along with implemented a basic trendingHandler. We also wrote a script which sent requests using curl with about 0.5 seconds delay on a loop as to simulate an event stream. 
 </details>

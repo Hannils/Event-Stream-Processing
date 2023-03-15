@@ -5,8 +5,9 @@ using ClassLibrary.Utilities;
 namespace ClassLibrary.Parser; 
 
 public class JSONEventParser : EventParser {
-    public Event parse(object evt) {
+    public async Task<Event> parse(object evt) {
         try {
+            Console.WriteLine(evt.ToString());
             var values = Util.JSONParse((string)evt);
             return new Event("JSON", values["action"].ToString(), values);
         }
