@@ -35,7 +35,7 @@ public class Class1
             }
 
             var jsonParser = new JSONEventParser();
-            using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/TestSolution/validJson.json")) {
+            using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/FuntionalityTests/validJson.json")) {
                 string json = r.ReadToEnd();
                 var jsonEvt = jsonParser.parse(json);
                 var jsonClassifiers = eventFilter.Filter(jsonEvt);
@@ -50,7 +50,7 @@ public class Class1
 
         /*try {
             var parser = new JSONEventParser();
-            using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/TestSolution/validJson.json")) {
+            using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/FuntionalityTests/validJson.json")) {
                 string json = r.ReadToEnd();
                 var evt = parser.parse(json);
                 var nest = (Dictionary<string, object>)evt.getAttribute("misc");

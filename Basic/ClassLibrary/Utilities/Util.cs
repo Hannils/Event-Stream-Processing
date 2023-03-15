@@ -5,7 +5,7 @@ using ClassLibrary.Types;
 namespace ClassLibrary.Utilities; 
 
 public class Util {
-    static public async Task<string> GetBody(Event evt) {
+    public static async Task<string> GetBody(Event evt) {
         var bodyStr = "";
         using (var reader = new StreamReader((Stream)evt.getAttribute("body"), Encoding.UTF8, true, 1024, true)) {
             bodyStr = await reader.ReadToEndAsync();

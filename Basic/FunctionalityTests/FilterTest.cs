@@ -51,7 +51,7 @@ namespace TestSolution
         public void TestJSONFilter()
         {
             var jsonParser = new JSONEventParser();
-            using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/TestSolution/validJson.json")) {
+            using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/FunctionalityTestsFunctionalityTests/validJson.json")) {
                 string json = r.ReadToEnd();
                 var jsonEvt = jsonParser.parse(json);
                 var jsonClassifiers = eventFilter.Filter(jsonEvt);

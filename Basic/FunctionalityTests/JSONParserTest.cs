@@ -9,7 +9,7 @@ public class JSONParserTest
     public void ReturnEventWithValidJSON()
     {
         var parser = new JSONEventParser();
-        using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/TestSolution/validJSON.json")) {
+        using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/FunctionalityTests/validJSON.json")) {
             string json = r.ReadToEnd();
             var evt = parser.parse(json);
             evt.Should().NotBeNull();
@@ -21,7 +21,7 @@ public class JSONParserTest
     public void ReturnNullWithInvalidJSON()
     {
         var parser = new JSONEventParser();
-        using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/TestSolution/invalidJSON.json")) {
+        using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/FunctionalityTests/invalidJSON.json")) {
             string json = r.ReadToEnd();
             var evt = parser.parse(json);
             evt.Should().BeNull();
@@ -32,7 +32,7 @@ public class JSONParserTest
     public void AbleToGetSingleProperty()
     {
         var parser = new JSONEventParser();
-        using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/TestSolution/validJSON.json")) {
+        using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/FunctionalityTests/validJSON.json")) {
             string json = r.ReadToEnd();
             var evt = parser.parse(json);
             evt.getAttribute("action").ToString().Should().Be("play");
@@ -44,7 +44,7 @@ public class JSONParserTest
     public void AbleToGetNestedProperty()
     {
         var parser = new JSONEventParser();
-        using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/TestSolution/validJSON.json")) {
+        using (StreamReader r = new StreamReader("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/Basic/FunctionalityTests/validJSON.json")) {
             string json = r.ReadToEnd();
             var evt = parser.parse(json);
             var nest = (Dictionary<string, object>)evt.getAttribute("misc");
