@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ClassLibrary.Types
+namespace ESP.Types
 {
     public class Event
     {

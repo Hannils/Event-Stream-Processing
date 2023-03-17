@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
-using ClassLibrary.Types;
-using ClassLibrary.Utilities;
+using ESP.Types;
+using ESP.Utilities;
 
-namespace ClassLibrary.Parser; 
+namespace ESP.Parser; 
 
 public class JSONEventParser : EventParser {
     public async Task<Event> parse(object evt) {

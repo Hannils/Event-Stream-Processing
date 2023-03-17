@@ -1,8 +1,8 @@
 using System.Text;
 using System.Text.Json;
-using ClassLibrary.Types;
+using ESP.Types;
 
-namespace ClassLibrary.Utilities; 
+namespace ESP.Utilities; 
 
 public class Util {
     public static async Task<string> GetBody(Stream evt) {

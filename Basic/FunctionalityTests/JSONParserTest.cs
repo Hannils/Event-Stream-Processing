@@ -1,6 +1,6 @@
 ﻿namespace TestSolution;
-using ClassLibrary.Parser;
-using ClassLibrary.Types;
+using ESP.Parser;
+using ESP.Types;
 using FluentAssertions;
 
 public class JSONParserTest

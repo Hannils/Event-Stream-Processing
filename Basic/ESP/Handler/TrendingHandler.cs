@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using System.Timers;
-using ClassLibrary.Parser;
-using ClassLibrary.Types;
-using ClassLibrary.Utilities;
+using ESP.Parser;
+using ESP.Types;
+using ESP.Utilities;
 using Timer = System.Timers.Timer;
 
-namespace ClassLibrary.Handler {
+namespace ESP.Handler {
     public class TrendingHandler : IEventHandler, IDisposable {
         private readonly Dictionary<string, int> Stats;
         private readonly Timer timer;

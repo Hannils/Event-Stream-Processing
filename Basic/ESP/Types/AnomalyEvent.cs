@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary.Types; 
+﻿namespace ESP.Types; 
 
 public class AnomalyEvent {
     public int TimeStamp { get; }

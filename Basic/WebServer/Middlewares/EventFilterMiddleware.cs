@@ -1,6 +1,8 @@
-﻿using ClassLibrary.Classifier;
-using ClassLibrary.Handler;
-using ClassLibrary.Parser;
+﻿using ESP.Classifier;
+using ESP.Handler;
+using ESP.Parser;
+using Microsoft.AspNetCore.Mvc;
+
 namespace WebServer.Middlewares;
 
 public class EventFilterMiddleware
@@ -8,14 +10,16 @@ public class EventFilterMiddleware
     private readonly RequestDelegate _next;
     private EventClassifier eventClassifier;
 
-    public EventFilterMiddleware(RequestDelegate next)
+    public EventFilterMiddleware(RequestDelegate next, string[] config)
     {
         _next = next;
         eventClassifier = new EventClassifier(new IEventHandler[] { new TrendingHandler(), new AnomalyHandler() });
+        Console.WriteLine("This is config: " + config);
     }
-
+    
     public async Task<Task> Invoke(HttpContext httpContext)
     {
+
         var filtering = new string[] { "/play", "/user", "/bookmark", "/load" };
         var httpParser = new HTTPParser();
 
@@ -38,9 +42,10 @@ public class EventFilterMiddleware
 // Extension method used to add the middleware to the HTTP request pipeline.
 public static class EventFilterMiddlewareExtensions
 {
-    public static IApplicationBuilder UseEventFilter(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseEventFilter(this IApplicationBuilder builder, string[] config)
     {
-        return builder.UseMiddleware<EventFilterMiddleware>();
+        
+        return builder.UseMiddleware<EventFilterMiddleware>(config);
     }
 }
 

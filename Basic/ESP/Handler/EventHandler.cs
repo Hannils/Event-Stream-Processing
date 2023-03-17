@@ -1,7 +1,7 @@
 ﻿using System;
-using ClassLibrary.Types;
+using ESP.Types;
 
-namespace ClassLibrary.Handler
+namespace ESP.Handler
 {
     public interface IEventHandler
     {

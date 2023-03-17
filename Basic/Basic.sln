@@ -5,7 +5,7 @@ VisualStudioVersion = 25.0.1704.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalityTests", "FunctionalityTests\FunctionalityTests.csproj", "{E421D234-4696-4DAB-9789-13506B18931F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{DCA36597-EBA3-4982-85C5-FF48D784EC1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP", "ESP\ESP.csproj", "{DCA36597-EBA3-4982-85C5-FF48D784EC1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication", "ConsoleApplication\ConsoleApplication.csproj", "{A67D4527-602B-4A59-961A-8A1BAED65941}"
 EndProject

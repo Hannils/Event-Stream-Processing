@@ -1,6 +1,6 @@
-﻿using ClassLibrary.Types;
+﻿using ESP.Types;
 
-namespace ClassLibrary.Parser; 
+namespace ESP.Parser; 
 
 public interface EventParser {
     public Task<Event> parse(object evt);

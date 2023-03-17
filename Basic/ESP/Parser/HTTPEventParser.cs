@@ -1,8 +1,8 @@
-﻿using ClassLibrary.Types;
-using ClassLibrary.Utilities;
+﻿using ESP.Types;
+using ESP.Utilities;
 using Microsoft.AspNetCore.Http;
 
-namespace ClassLibrary.Parser; 
+namespace ESP.Parser; 
 
 public class HTTPParser : EventParser {
     public async Task<Event> parse(object evt) {

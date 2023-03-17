@@ -1,15 +1,17 @@
 ﻿using System.Text;
 using System.Timers;
-using ClassLibrary.Parser;
-using ClassLibrary.Types;
-using ClassLibrary.Utilities;
+using ESP.Parser;
+using ESP.Types;
+using ESP.Utilities;
 using Timer = System.Timers.Timer;
+using StackExchange.Redis;
 
-namespace ClassLibrary.Handler;
+namespace ESP.Handler;
 
 public class AnomalyHandler : IEventHandler, IDisposable {
     private readonly Dictionary<string, List<AnomalyEvent>> Stats;
     private readonly Timer timer;
+    private IDatabase db;
 
     public AnomalyHandler() {
         Subscriptions = new[]
@@ -18,6 +20,8 @@ public class AnomalyHandler : IEventHandler, IDisposable {
         timer = new Timer(10000);
         timer.Elapsed += PurgeStats;
         timer.Enabled = true;
+        db = Redis.Connect();
+
     }
     public string[] Subscriptions { get; }
 
@@ -44,7 +48,7 @@ public class AnomalyHandler : IEventHandler, IDisposable {
             if (Stats[user].Count >= 10) Stats[user].RemoveAt(0);
             Stats[user].Add(new AnomalyEvent(timeStamp, path));
             printStats();
-            
+            Console.WriteLine(db.Ping());
         }
         catch (ArgumentException e) {
             Console.WriteLine("ArgumentException caught: {0}", e);

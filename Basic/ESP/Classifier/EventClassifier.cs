@@ -1,7 +1,7 @@
-﻿using ClassLibrary.Types;
-using ClassLibrary.Handler;
+﻿using ESP.Handler;
+using ESP.Types;
 
-namespace ClassLibrary.Classifier
+namespace ESP.Classifier
 {
     public class EventClassifier
     {
