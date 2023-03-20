@@ -1,31 +1,28 @@
-﻿using ESP.Classifier;
+﻿using System.Runtime.CompilerServices;
+using ESP.Classifier;
 using ESP.Handler;
 using ESP.Parser;
 using Microsoft.AspNetCore.Mvc;
-
 namespace WebServer.Middlewares;
 
-public class EventFilterMiddleware
-{
-    private readonly RequestDelegate _next;
+public class EventFilterMiddleware : IMiddleware {
+    private readonly Config _config;
+    //private readonly RequestDelegate _next;
     private EventClassifier eventClassifier;
 
-    public EventFilterMiddleware(RequestDelegate next, string[] config)
-    {
-        _next = next;
-        eventClassifier = new EventClassifier(new IEventHandler[] { new TrendingHandler(), new AnomalyHandler() });
-        Console.WriteLine("This is config: " + config);
-    }
-    
-    public async Task<Task> Invoke(HttpContext httpContext)
-    {
 
-        var filtering = new string[] { "/play", "/user", "/bookmark", "/load" };
+    public EventFilterMiddleware(Config config) {
+        eventClassifier = new EventClassifier(new IEventHandler[] { new TrendingHandler(), new AnomalyHandler() });
+        _config = config;
+
+    }
+    public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next)
+    {
         var httpParser = new HTTPParser();
 
         var httpEvt = await httpParser.parse(httpContext.Request);
-        if (httpEvt == null || !filtering.Contains(httpEvt.getAttribute("path").ToString()) || httpContext.Request.Method == "GET")
-            return _next(httpContext);
+        if (httpEvt == null || !_config.Endpoints.Contains(httpEvt.getAttribute("path").ToString()) || httpContext.Request.Method == "GET")
+            await next(httpContext);
 
 
         var httpHandlers = eventClassifier.Classify(httpEvt);
@@ -34,7 +31,7 @@ public class EventFilterMiddleware
                 handler.Handle(httpEvt);
             }
 
-        return _next(httpContext);
+        await next(httpContext);
 
     }
 }
@@ -42,10 +39,9 @@ public class EventFilterMiddleware
 // Extension method used to add the middleware to the HTTP request pipeline.
 public static class EventFilterMiddlewareExtensions
 {
-    public static IApplicationBuilder UseEventFilter(this IApplicationBuilder builder, string[] config)
+    public static IApplicationBuilder UseEventFilter(this IApplicationBuilder builder)
     {
-        
-        return builder.UseMiddleware<EventFilterMiddleware>(config);
+        return builder.UseMiddleware<EventFilterMiddleware>();
     }
 }
 

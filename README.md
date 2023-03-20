@@ -46,4 +46,8 @@
 
   ### Day 7
   We started looking into redis and set up a quick server for it. We also talked with out external supervisor about the next step and we will start looking inot apache kafka, redis, NATs for comparing the persisting of data in the event stream. We also started to read about attributes.
+
+
+  ### Day 8
+  We successed in writing a config for dependency injection following this example: https://www.azureblue.io/writing-factory-based-asp-net-core-middleware-part-4/
 </details>
