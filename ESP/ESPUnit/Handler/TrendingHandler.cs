@@ -19,17 +19,20 @@ public class TrendingHandler : IEventHandler, IDisposable {
     public string[] Subscriptions { get; }
 
     private void PurgeStats(object? source, ElapsedEventArgs e) {
-        //Console.WriteLine("Halving trending numbers: ");
+        Console.WriteLine("Halving trending numbers: ");
         foreach (var (key, value) in Stats) {
             Stats[key] /= 2;
             if (Stats[key] == 0) Stats.Remove(key);
         }
 
-        //printStats();
+        printStats();
     }
 
     public async void Handle(Event evt) {
         try {
+            Console.WriteLine("Handling trending");
+            Thread.Sleep(2000);
+            Console.WriteLine("Done Sleeping trending");
             var bodyJson = Util.JSONParse(evt.attributes.body);
             if (bodyJson == null) return;
 
@@ -37,7 +40,7 @@ public class TrendingHandler : IEventHandler, IDisposable {
 
             if (!Stats.ContainsKey(isbn)) Stats.Add(isbn, 0);
             Stats[isbn]++;
-            //printStats();
+            printStats();
 
         }
         catch (ArgumentException e) {

@@ -36,8 +36,15 @@ public class Server {
                     Console.WriteLine(evt.ToString());
                     if (evt == null) throw new Exception("Invalid payload");
                     var handlers = _eventClassifier.Classify(evt);
+                    List<Thread> tList = new List<Thread>(handlers.Length);
                     foreach (var handler in handlers) {
-                        handler.Handle(evt);
+                        Thread t = new Thread(()=>handler.Handle(evt));
+                        tList.Append(t);
+                        t.Start();
+                    }
+
+                    foreach (var t in tList) {
+                        t.Join();
                     }
                 }
             } catch (Exception e) {

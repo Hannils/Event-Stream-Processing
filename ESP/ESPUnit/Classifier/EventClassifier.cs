@@ -17,7 +17,7 @@ public class EventClassifier
             }
         }
     }
-    public IEventHandler[]? Classify(Event evt)
+    public IEventHandler[] Classify(Event evt)
     {
         try {
             var list = SubscriptionMap[evt.identifier];
@@ -25,7 +25,7 @@ public class EventClassifier
         } catch (KeyNotFoundException e) {
             Console.WriteLine("Exception: " + e.Message);
         }
-        return null;
+        return new IEventHandler[] {};
 
     }
 

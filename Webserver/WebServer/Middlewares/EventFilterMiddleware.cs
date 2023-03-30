@@ -13,7 +13,7 @@ public class EventFilterMiddleware : IMiddleware {
         client = new HttpClient();
         _config = config;
         FetchExternalConfig(config.ESPUnitPath);
-        Console.WriteLine("[{0}]", string.Join(", ", filter));
+        //Console.WriteLine("[{0}]", string.Join(", ", filter));
     }
 
 
@@ -25,9 +25,9 @@ public class EventFilterMiddleware : IMiddleware {
         if (filter.Contains(httpEvt.identifier)) {
             client.PostAsync(_config.ESPUnitPath, new StringContent(requestContent));
         }
-        sw.Stop();
-        Console.WriteLine("Time taken: {0}ms", sw.Elapsed.TotalMilliseconds);
         await next(httpContext);
+        sw.Stop();
+        Console.WriteLine(sw.Elapsed.TotalMilliseconds);
     }
 
     private void FetchExternalConfig(string path) {
