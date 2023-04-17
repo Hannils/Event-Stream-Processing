@@ -24,16 +24,14 @@ public class TrendingHandler : IEventHandler, IDisposable {
             Stats[key] /= 2;
             if (Stats[key] == 0) Stats.Remove(key);
         }
-
-        printStats();
+    if (Stats.Count != 0) printStats();
     }
 
     public async void Handle(Event evt) {
         try {
-            Console.WriteLine("Handling trending");
-            Thread.Sleep(2000);
-            Console.WriteLine("Done Sleeping trending");
-            var bodyJson = Util.JSONParse(evt.attributes.body);
+            if (evt.type != "HTTP") return;
+            HttpEvent evt1 = (HttpEvent)evt;
+            var bodyJson = Util.JSONParse(evt1.attributes.body);
             if (bodyJson == null) return;
 
             var isbn = bodyJson["ISBN"].ToString();

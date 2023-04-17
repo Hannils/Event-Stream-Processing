@@ -1,6 +1,6 @@
 namespace ESPUnit.Types; 
 
-public class EventAttributes {
+public class HttpEventAttributes {
     public string path { get; }
     public string method { get; }
     public long date { get; }
@@ -9,7 +9,7 @@ public class EventAttributes {
     
     public string authorization { get; }
     
-    public EventAttributes(string path, string method, long date, string queryString, string body, string authorization) {
+    public HttpEventAttributes(string path, string method, long date, string queryString, string body, string authorization) {
         this.path = path;
         this.method = method;
         this.date = date;

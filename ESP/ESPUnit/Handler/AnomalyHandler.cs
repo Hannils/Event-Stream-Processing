@@ -11,7 +11,6 @@ public class AnomalyHandler : IEventHandler, IDisposable {
     //private IDatabase db;
 
     public AnomalyHandler() {
-        Thread.Sleep(2000);
         Subscriptions = new[]
             { "POST_play", "GET_user", "POST_bookmark", "POST_load"};
         Stats = new Dictionary<string, List<AnomalyEntry>>();
@@ -24,22 +23,20 @@ public class AnomalyHandler : IEventHandler, IDisposable {
     public string[] Subscriptions { get; }
 
     private void PurgeStats(object? source, ElapsedEventArgs e) {
-        var timeStampLimit = DateTimeOffset.Now.ToUnixTimeSeconds() - 10;
+        var timeStampLimit = DateTimeOffset.Now.ToUnixTimeMilliseconds() - 10;
         Console.WriteLine("Removing everything that was created " + (timeStampLimit) + " ago");
         foreach (var (key, value) in Stats) {
             var result = value.FindAll(e => e.TimeStamp > timeStampLimit);
             if (result.Count == 0) Stats.Remove(key);
             else Stats[key] = result;
         }
-        
-        printStats();
+        if (Stats.Count != 0) printStats();
     }
 
-    public async void Handle(Event evt) {
+    public async void Handle(Event ev) {
         try {
-            Console.WriteLine("Handling anomaly");
-            Thread.Sleep(2000);
-            Console.WriteLine("Done Sleeping anomaly");
+            if (ev.type != "HTTP") return;
+            HttpEvent evt = (HttpEvent)ev;
             var bodyJson = Util.JSONParse(evt.attributes.body);
             if (bodyJson == null) return;
             var user = bodyJson?["user"].ToString();

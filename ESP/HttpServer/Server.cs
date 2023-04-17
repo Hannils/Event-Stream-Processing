@@ -32,8 +32,13 @@ public class Server {
                     SendEndpoints(ctx);
                 }
                 else if (ctx.Request.HttpMethod == "POST") {
-                    var evt = JsonSerializer.Deserialize<Event>(await Util.GetBody(ctx.Request.InputStream));
-                    Console.WriteLine(evt.ToString());
+                    var body = await Util.GetBody(ctx.Request.InputStream);
+                    var evt = JsonSerializer.Deserialize<Event>(body);
+
+                    if (evt.type == "HTTP") {
+                        evt = JsonSerializer.Deserialize<HttpEvent>(body);
+                    }
+                    Console.WriteLine(evt.type);
                     if (evt == null) throw new Exception("Invalid payload");
                     var handlers = _eventClassifier.Classify(evt);
                     List<Thread> tList = new List<Thread>(handlers.Length);
