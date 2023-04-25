@@ -18,6 +18,7 @@ public class EventFilterMiddleware : IMiddleware {
     }
     
     public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next) {
+        Stopwatch sw = Stopwatch.StartNew();
         var httpParser = new HttpParser();
         var httpEvt = await httpParser.Parse(httpContext.Request);
         var requestContent = JsonSerializer.Serialize(httpEvt);
@@ -25,6 +26,8 @@ public class EventFilterMiddleware : IMiddleware {
             connection.Publish("ESP.event", Encoding.UTF8.GetBytes(requestContent));
         }
         await next(httpContext);
+        sw.Stop();
+        Console.WriteLine(sw.Elapsed.TotalMilliseconds);
     }
 
     private void FetchExternalConfig(string path) {
