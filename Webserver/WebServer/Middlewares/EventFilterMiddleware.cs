@@ -7,7 +7,7 @@ namespace WebServer.Middlewares;
 public class EventFilterMiddleware : IMiddleware {
     private readonly Config _config;
     private HttpClient client;
-    private string[] filter;
+    private HashSet<string> filter;
 
     public EventFilterMiddleware(Config config) {
         client = new HttpClient();
@@ -36,7 +36,7 @@ public class EventFilterMiddleware : IMiddleware {
         using var reader = new StreamReader(response.Content.ReadAsStream());
         var result = JsonSerializer.Deserialize<string[]>(reader.ReadToEnd());
         if (result == null) throw new Exception("Invalid Filter data received");
-        filter = result;
+        filter = new HashSet<string>(result);
     }
 }
 
