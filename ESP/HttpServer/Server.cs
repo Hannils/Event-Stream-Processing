@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using ESPUnit.Utilities;
@@ -13,8 +14,10 @@ public class Server {
     private string url = "http://localhost:8000/";
     private string Endpoints;
     private EventClassifier _eventClassifier;
+    private List<double> mes;
     public Server() {
         _eventClassifier = new EventClassifier(new IEventHandler[] { new TrendingHandler(), new AnomalyHandler() });
+        mes = new List<double>();
         listener = new HttpListener();
         listener.Prefixes.Add(url);
         listener.Start();
@@ -25,8 +28,10 @@ public class Server {
         listener.Close();
     }
     public async Task HandleIncomingConnections() {
+        int i = 0;
         while (true) {
             HttpListenerContext ctx = await listener.GetContextAsync();
+            Stopwatch sw = Stopwatch.StartNew();
             try {
                 if (ctx.Request.HttpMethod == "GET") {
                     SendEndpoints(ctx);
@@ -38,12 +43,12 @@ public class Server {
                     if (evt.type == "HTTP") {
                         evt = JsonSerializer.Deserialize<HttpEvent>(body);
                     }
-                    Console.WriteLine(evt.type);
+                    
                     if (evt == null) throw new Exception("Invalid payload");
                     var handlers = _eventClassifier.Classify(evt);
                     List<Thread> tList = new List<Thread>(handlers.Length);
                     foreach (var handler in handlers) {
-                        Thread t = new Thread(()=>handler.Handle(evt));
+                        Thread t = new Thread(() => handler.Handle(evt));
                         tList.Append(t);
                         t.Start();
                     }
@@ -51,12 +56,26 @@ public class Server {
                     foreach (var t in tList) {
                         t.Join();
                     }
+                    
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 Console.WriteLine("Exception caught: " + e);
-            } finally {
+            }
+            finally {
                 ctx.Response.Close();
             }
+            sw.Stop();
+            if (i == 1000) {
+                StreamWriter stream = File.AppendText("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/output.txt");
+                double avg = mes.Average();
+                await stream.WriteAsync("" + avg + "\n");
+                stream.Close();
+                i = 0;
+                mes.Clear();
+            }
+            mes.Insert(i, sw.Elapsed.TotalMilliseconds);
+            i++;
         }
     }
 

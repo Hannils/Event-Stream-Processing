@@ -24,13 +24,13 @@ public class AnomalyHandler : IEventHandler, IDisposable {
 
     private void PurgeStats(object? source, ElapsedEventArgs e) {
         var timeStampLimit = DateTimeOffset.Now.ToUnixTimeMilliseconds() - 10;
-        Console.WriteLine("Removing everything that was created " + (timeStampLimit) + " ago");
+        //Console.WriteLine("Removing everything that was created " + (timeStampLimit) + " ago");
         foreach (var (key, value) in Stats) {
             var result = value.FindAll(e => e.TimeStamp > timeStampLimit);
             if (result.Count == 0) Stats.Remove(key);
             else Stats[key] = result;
         }
-        if (Stats.Count != 0) printStats();
+        //if (Stats.Count != 0) printStats();
     }
 
     public async void Handle(Event ev) {
@@ -42,11 +42,11 @@ public class AnomalyHandler : IEventHandler, IDisposable {
             var user = bodyJson?["user"].ToString();
             var timeStamp = evt.attributes.date;
             var path = evt.attributes.path.ToString();
-            if (!Stats.ContainsKey(user)) Stats.Add(user, new List<AnomalyEntry>());
+            lock (this) {
+                if (!Stats.ContainsKey(user)) Stats.Add(user, new List<AnomalyEntry>());
+            }
             if (Stats[user].Count >= 10) Stats[user].RemoveAt(0);
             Stats[user].Add(new AnomalyEntry(timeStamp, path));
-            printStats();
-            //Console.WriteLine(db.Ping());
         }
         catch (ArgumentException e) {
             Console.WriteLine("ArgumentException caught: {0}", e);

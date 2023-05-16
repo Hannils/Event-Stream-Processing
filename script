@@ -1,32 +1,25 @@
 #!/bin/bash
-for i in {1..10}
+counter=1
+while [ $counter -le 6000 ]
 do
 isbn=$(($RANDOM%10))
 user=$(($RANDOM%100))
 curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1006, \"ISBN\":\"book$isbn\"}"
-Sleep 0.5
-curl -X GET http://localhost:5129/play -H "Content-Type: application/json"    
-Sleep 0.5
+curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1007, \"ISBN\":\"book$isbn\"}"   
 user=$(($RANDOM%100))
-curl -X GET http://localhost:5129/bookmark -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1001}"
-Sleep 0.5
+curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1008, \"ISBN\":\"book$isbn\"}"
 user=$(($RANDOM%100))
-curl -X PUT http://localhost:5129/user -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1002}"
-Sleep 0.5
+curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1009, \"ISBN\":\"book$isbn\"}"
 user=$(($RANDOM%100))
-curl -X DELETE http://localhost:5129/etc -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1003}"
-Sleep 0.5
+curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1010, \"ISBN\":\"book$isbn\"}"
 user=$(($RANDOM%100))
-curl -X POST http://localhost:5129/user -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1004}"
-Sleep 0.5
+curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1011, \"ISBN\":\"book$isbn\"}"
 user=$(($RANDOM%100))
-curl -X GET http://localhost:5129/user -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1005}"
-Sleep 0.5
+curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1012, \"ISBN\":\"book$isbn\"}"
 isbn=$(($RANDOM%10))
-curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1006, \"ISBN\":\"book$isbn\"}"
-Sleep 0.5
-curl -X POST http://localhost:5129/play -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1007}"
-Sleep 0.5
-curl -X POST http://localhost:5129/play -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1007}"
+curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1013, \"ISBN\":\"book$isbn\"}"
+curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1014, \"ISBN\":\"book$isbn\"}"
+curl -X POST http://localhost:5129/load -H "Content-Type: application/json" -d "{\"user\": \"user$user\", \"timeStamp\": 1015, \"ISBN\":\"book$isbn\"}"
+((counter++))
 done
 

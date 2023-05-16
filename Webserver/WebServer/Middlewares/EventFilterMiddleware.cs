@@ -13,7 +13,6 @@ public class EventFilterMiddleware : IMiddleware {
         client = new HttpClient();
         _config = config;
         FetchExternalConfig(config.ESPUnitPath);
-        //Console.WriteLine("[{0}]", string.Join(", ", filter));
     }
 
 

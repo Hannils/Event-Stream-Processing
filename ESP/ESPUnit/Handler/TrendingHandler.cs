@@ -9,7 +9,7 @@ public class TrendingHandler : IEventHandler, IDisposable {
 
     public TrendingHandler() {
         Subscriptions = new[]
-            { "POST_load" };
+            { "" };
         Stats = new Dictionary<string, int>();
         timer = new Timer(1000 * 30); //1000 * 60 * 10);
         timer.Elapsed += PurgeStats;
@@ -19,12 +19,12 @@ public class TrendingHandler : IEventHandler, IDisposable {
     public string[] Subscriptions { get; }
 
     private void PurgeStats(object? source, ElapsedEventArgs e) {
-        Console.WriteLine("Halving trending numbers: ");
+        //Console.WriteLine("Halving trending numbers: ");
         foreach (var (key, value) in Stats) {
             Stats[key] /= 2;
             if (Stats[key] == 0) Stats.Remove(key);
         }
-    if (Stats.Count != 0) printStats();
+    //if (Stats.Count != 0) printStats();
     }
 
     public async void Handle(Event evt) {
@@ -38,7 +38,7 @@ public class TrendingHandler : IEventHandler, IDisposable {
 
             if (!Stats.ContainsKey(isbn)) Stats.Add(isbn, 0);
             Stats[isbn]++;
-            printStats();
+            //printStats();
 
         }
         catch (ArgumentException e) {
