@@ -9,7 +9,7 @@ public class TrendingHandler : IEventHandler, IDisposable {
 
     public TrendingHandler() {
         Subscriptions = new[]
-            { "" };
+            { "GET_never" };
         Stats = new Dictionary<string, int>();
         timer = new Timer(1000 * 30); //1000 * 60 * 10);
         timer.Elapsed += PurgeStats;

@@ -15,6 +15,7 @@ public class Server {
     private string Endpoints;
     private EventClassifier _eventClassifier;
     private List<double> mes;
+
     public Server() {
         _eventClassifier = new EventClassifier(new IEventHandler[] { new TrendingHandler(), new AnomalyHandler() });
         mes = new List<double>();
@@ -27,11 +28,19 @@ public class Server {
         listenTask.GetAwaiter().GetResult();
         listener.Close();
     }
+
     public async Task HandleIncomingConnections() {
         int i = 0;
+        Boolean startMinutes = true;
+        Stopwatch minutes = null;
         while (true) {
-            HttpListenerContext ctx = await listener.GetContextAsync();
+            if (startMinutes) {
+                minutes = Stopwatch.StartNew();
+                startMinutes = false;
+            }
+
             Stopwatch sw = Stopwatch.StartNew();
+            HttpListenerContext ctx = await listener.GetContextAsync();
             try {
                 if (ctx.Request.HttpMethod == "GET") {
                     SendEndpoints(ctx);
@@ -43,7 +52,7 @@ public class Server {
                     if (evt.type == "HTTP") {
                         evt = JsonSerializer.Deserialize<HttpEvent>(body);
                     }
-                    
+
                     if (evt == null) throw new Exception("Invalid payload");
                     var handlers = _eventClassifier.Classify(evt);
                     List<Thread> tList = new List<Thread>(handlers.Length);
@@ -56,7 +65,6 @@ public class Server {
                     foreach (var t in tList) {
                         t.Join();
                     }
-                    
                 }
             }
             catch (Exception e) {
@@ -65,17 +73,23 @@ public class Server {
             finally {
                 ctx.Response.Close();
             }
-            sw.Stop();
-            if (i == 1000) {
-                StreamWriter stream = File.AppendText("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/output.txt");
+
+            if (sw.Elapsed.TotalMilliseconds < 2) {
+                mes.Insert(i, sw.Elapsed.TotalMilliseconds);
+                i++;
+            }
+            if (minutes.Elapsed.TotalMinutes >= 1) {
+                i = 0;
+                sw.Stop();
+                minutes.Stop();
+                StreamWriter stream =
+                    File.AppendText("/Users/hampus.nilsson/Desktop/Event-Stream-Processing/output.txt");
                 double avg = mes.Average();
                 await stream.WriteAsync("" + avg + "\n");
                 stream.Close();
-                i = 0;
                 mes.Clear();
+                minutes = Stopwatch.StartNew();
             }
-            mes.Insert(i, sw.Elapsed.TotalMilliseconds);
-            i++;
         }
     }
 
