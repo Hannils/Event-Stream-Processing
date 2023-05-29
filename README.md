@@ -13,6 +13,8 @@ There are 2 main folders within the repository: ESP & Webserver.
     *  Middleware connecting the main system with the ESP system
     *  Minimum requirements for an HTTP webserver
 
+The repository also contains the script used during the testing. A simple bash script which sends requests using cURL and generates some random data.
+
 There are a three main branches:
 1. The main code structure can be browsed in the "main" branch. It utilises HTTP as communication protocol and has been used as the standard code during the project.
 2. The second branch is "NATS-branch". It utilises NATS as communication protocol.
