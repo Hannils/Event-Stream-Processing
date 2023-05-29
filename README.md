@@ -2,7 +2,22 @@
 
 This is the main repository of the bachelor thesis for Hampus Nilsson and Kalle Elmdahl.
 
-There are a three main branches built for different tests. The main code structure can be browsed in the "main" branch.
+There are 2 main folders within the repository: ESP & Webserver.
+
+* ESP contains everything that has to do with the processing such as
+  * Classifier (Maps event types to handlers)
+  * Handlers (Handles and processes all of the data)
+  * Various event types
+
+ * Webserver contains
+    *  Middleware connecting the main system with the ESP system
+    *  Minimum requirements for an HTTP webserver
+
+There are a three main branches:
+1. The main code structure can be browsed in the "main" branch. It utilises HTTP as communication protocol and has been used as the standard code during the project.
+2. The second branch is "NATS-branch". It utilises NATS as communication protocol.
+3. The third branch is "non-functional testing". It utilises HTTP as communication protocol and was used during load-, stress- and endurance-testing.
+
 
 <details>
   <summary>Log</summary>
